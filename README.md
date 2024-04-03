@@ -1,10 +1,10 @@
 **E-Commer Pemuco**
 
 **Equipo Pemuco:**
-*Diego Ormazabal 
-*Benjamín Parra
-*Iván Carreño (No participa de este proyecto)
-*Javier Navarrete
+* Diego Ormazabal 
+* Benjamín Parra
+* Iván Carreño (No participa de este proyecto)
+* Javier Navarrete
 
 Servicio de página web tipo Ecomerce, el cual va en ayuda para tener un seguimiento de ventas, conocer stock de productos y agilizar procesos.
 
