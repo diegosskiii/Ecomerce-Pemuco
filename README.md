@@ -1,7 +1,7 @@
 **E-Commer Pemuco**
 
 **Equipo Pemuco:**
-* Diego Ormazabal 
+* Diego Ormazabal https://github.com/diegosskiii
 * Benjamín Parra
 * Iván Carreño (No participa de este proyecto)
 * Javier Navarrete
