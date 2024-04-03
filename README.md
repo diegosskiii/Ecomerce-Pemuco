@@ -1,11 +1,5 @@
 **E-Commer Pemuco**
 
-**Equipo Pemuco:**
-* Diego Ormazabal https://github.com/diegosskiii
-* Benjamín Parra https://github.com/Shunnsi
-* Iván Carreño (No participa de este proyecto)
-* Javier Navarrete https://github.com/Kunisugi
-
 Servicio de página web tipo Ecomerce, el cual va en ayuda para tener un seguimiento de ventas, conocer stock de productos y agilizar procesos.
 
 ----------------------------------------------------------------------------------------------------------------------------------------------
@@ -53,6 +47,14 @@ Servicio de página web tipo Ecomerce, el cual va en ayuda para tener un seguimi
 
 **Base de datos:**
         MySQL(Por definir)
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+**Equipo Pemuco:**
+* Diego Ormazabal https://github.com/diegosskiii
+* Benjamín Parra https://github.com/Shunnsi
+* Iván Carreño (No participa de este proyecto)
+* Javier Navarrete https://github.com/Kunisugi
 
 -----------------------------------------------------------------------------------------------------------------------------------------------
 
