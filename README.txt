@@ -1,56 +1,60 @@
 E-Commer Pemuco
 
-Equipo Pemuco:
-
-	Diego Ormazabal 
-	Benjamín Parra
-	Iván Carreño (No participa de este proyecto)
-	Javier Navarrete
+**Equipo Pemuco:**
+Diego Ormazabal 
+Benjamín Parra
+Iván Carreño (No participa de este proyecto)
+Javier Navarrete
 
 Servicio de página web tipo Ecomerce, el cual va en ayuda para tener un seguimiento de ventas, conocer stock de productos y agilizar procesos.
 
-Modulos
+----------------------------------------------------------------------------------------------------------------------------------------------
 
-Carrito de compra:
-	* Agregar producto
-	* Eliminar producto
-	* Modificar producto
-	* Pagar
+**MODULOS**
 
-Producto:
-	* Agregar producto
-	* Eliminar producto
-	* Modificar producto
-	* Mostrar stock
-	* Ofertas 
+**Carrito de compra:**
+* Agregar producto
+* Eliminar producto
+* Modificar producto
+* Pagar
 
-Venta:
-	* Estado venta 
-	* Dashboard  
-	* Despacho o Retiro
-	* Generar boleta
+**Producto:**
+* Agregar producto
+* Eliminar producto
+* Modificar producto
+* Mostrar stock
+* Ofertas 
+
+**Venta:**
+* Estado venta 
+* Dashboard  
+* Despacho o Retiro
+* Generar boleta
 	
 	
-Usuario:
-	* Registro
-	* Inicio de sesión
-	* Historial de compras
-        * Sistema de roles 
-	* Recuperar contraseñas
+**Usuario:**
+* Registro
+* Inicio de sesión
+* Historial de compras
+* Sistema de roles 
+* Recuperar contraseñas
 
-Herramientas
+----------------------------------------------------------------------------------------------------------------------------------------------
 
-Frameworks:
-	    Django Rest Framework.
-	    Angular.
+**HERRAMIENTAS**
 
-Lenguajes de programación:
+**Frameworks:**
+	    Django Rest Framework v3.15.1
+	    Angular v15.0.2
+
+**Lenguajes de programación:**
 	    Python
  	    TypeScript
 
-Base de datos:
+**Base de datos:**
         MySQL(Por definir)
 
+-----------------------------------------------------------------------------------------------------------------------------------------------
 
 Licencia No Comercial Creative Commons
 
