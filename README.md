@@ -4,7 +4,7 @@
 * Diego Ormazabal https://github.com/diegosskiii
 * Benjamín Parra
 * Iván Carreño (No participa de este proyecto)
-* Javier Navarrete
+* Javier Navarrete https://github.com/Kunisugi
 
 Servicio de página web tipo Ecomerce, el cual va en ayuda para tener un seguimiento de ventas, conocer stock de productos y agilizar procesos.
 
