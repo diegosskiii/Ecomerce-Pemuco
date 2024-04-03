@@ -2,7 +2,7 @@
 
 **Equipo Pemuco:**
 * Diego Ormazabal https://github.com/diegosskiii
-* Benjamín Parra
+* Benjamín Parra https://github.com/Shunnsi
 * Iván Carreño (No participa de este proyecto)
 * Javier Navarrete https://github.com/Kunisugi
 
