@@ -39,7 +39,7 @@ Servicio de página web tipo Ecomerce, el cual va en ayuda para tener un seguimi
 
 **Frameworks:**
 	    Django Rest Framework v3.15.1
-	    Angular v15.0.2
+	    Angular v16.0.0
 
 **Lenguajes de programación:**
 	    Python
