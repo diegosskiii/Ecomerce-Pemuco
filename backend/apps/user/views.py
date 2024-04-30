@@ -1,13 +1,16 @@
+from rest_framework.authtoken.views import ObtainAuthToken 
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
 from .serializer import UserSerializer, UserListSerializer
 from .models import User
-from rest_framework.authtoken.views import ObtainAuthToken 
+
 
 #LOGIN
 class Login(ObtainAuthToken):
+    """La clase Login obtiene y sobreescribe el token del usuario"""
     def post(self,request,*args,**kwargs):
+        print(request.user)
         login_serializer = self.serializer_class(data = request.data, context = {'request':request})
         if login_serializer.is_valid():
             print("Pasó validación")
@@ -16,9 +19,9 @@ class Login(ObtainAuthToken):
 
 
 
-
 @api_view(['GET','POST'])
 def user_api_view(request):
+    """La funcion user_api_view permite mostrar y agregar usuarios"""
     
     if request.method == 'GET':
         users=User.objects.all()
