@@ -20,27 +20,17 @@ class AddressSerializer(serializers.ModelSerializer):
         address_instance = Address.objects.create(region=region_instance, **validated_data)
         return address_instance
     
+class UserTokenSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'name')
+
 class UserListSerializer(serializers.ModelSerializer):
     address = AddressSerializer()
     class Meta:
         model = User
         fields ='__all__'
 
-''' 
-   def to_representation(self, instance):
-        return {
-            'id': instance.id,
-            'name': instance.name,
-            'last_name': instance.last_name,
-            'rut': instance.rut,
-            'email': instance.email,
-            'address':{
-                'region': instance.address.region.region_name,
-                'street':instance.address.street,
-                'number':instance.address.number
-            }
-        }
-'''
 class UserSerializer(serializers.ModelSerializer):
     address = AddressSerializer()
 
