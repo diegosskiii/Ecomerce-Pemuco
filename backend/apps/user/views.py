@@ -17,7 +17,11 @@ Funciones:
     - user_api_view: Función de vista para mostrar y agregar usuarios.
     - user_detail_view: Función de vista para ver, actualizar y eliminar un usuario específico.
 """
+import datetime
+from django.contrib.sessions.models import Session
+from django.utils import timezone
 from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework import status
@@ -96,3 +100,30 @@ def user_detail_view(request,pk=None):
                 status=status.HTTP_200_OK)
     return Response({'message':'No se ha encontrado el usuario'},
                     status=status.HTTP_400_BAD_REQUEST)
+
+class Logout(APIView):
+    def post(self, request, *args, **kwargs):
+        try:
+            token = request.data.get('token')
+            token_obj = Token.objects.filter(key=token).first()
+            if token_obj:
+                user = token_obj.user
+                all_sessions = Session.objects.filter(expire_date__gte=timezone.now())
+                for session in all_sessions:
+                    session_data = session.get_decoded()
+                    if user.id == int(session_data['_auth_user_id']):
+                        session.delete()
+                token_obj.delete()
+                session_message = 'Sesiones de usuario eliminadas.'
+                token_message = 'Token eliminado'
+                return Response({'token_message': token_message,
+                                 'session_message': session_message},
+                                status=status.HTTP_200_OK)
+            return Response({'error': 'No se ha encontrado un usuario con estas credenciales.'},
+                            status=status.HTTP_400_BAD_REQUEST)
+        except Token.DoesNotExist:
+            return Response({'error': 'No se ha encontrado el token en la petición.'},
+                            status=status.HTTP_409_CONFLICT)
+        except Exception as e:
+            return Response({'error': 'Se produjo un error inesperado: {}'.format(str(e))},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)

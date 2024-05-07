@@ -17,10 +17,11 @@ Funciones y Clases de Vistas:
 
 """
 from django.urls import path
-from apps.user.views import user_api_view, user_detail_view, Login
+from apps.user.views import user_api_view, user_detail_view, Login, Logout
 
 urlpatterns = [
     path('users/', user_api_view, name='user_api'),
     path('', Login.as_view(),name='Login'),
+    path('logout/', Logout.as_view(),name='Logout'),
     path('detail/<int:pk>/', user_detail_view, name='user_detail_api')
 ]
