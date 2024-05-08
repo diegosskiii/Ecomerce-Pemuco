@@ -32,7 +32,9 @@ from .models import User
 
 #LOGIN
 class Login(ObtainAuthToken):
-    """La clase Login obtiene y sobreescribe el token del usuario."""
+    """La clase Login obtiene y sobreescribe el token del usuario.
+        Se debe enviar mediante post el username y password para obtener un token
+    """
     def post(self,request,*args,**kwargs):
         print(request.user)
         login_serializer = self.serializer_class(data = request.data,

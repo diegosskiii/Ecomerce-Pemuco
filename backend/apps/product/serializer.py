@@ -7,10 +7,11 @@ class CategorySerializer(serializers.ModelSerializer):
         exclude = ('state',)
 
     def create(self, validated_data):
-        category_name = validated_data.get('category_name')
+        category_name = validated_data.get('category_name').lower()
         existing_category = Category.objects.filter(category_name = category_name).first()
         if existing_category:
             raise serializers.ValidationError("The category already exists")
+        validated_data['category_name'] = category_name
         return Category.objects.create(**validated_data)
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -29,15 +30,4 @@ class ProductSerializer(serializers.ModelSerializer):
             "category": instance.category.category_name,
             "image": instance.image.url if instance.image else None
         }
-    
-
-
-    '''
-    def create(self, validated_data):
-        category_data = validated_data.pop('category')
-        category_instance, created = Category.objects.get_or_create(**category_data)
-        category_instance = Category.objects.create(category=category_instance, **validated_data)
-        return category_instance
-    '''
-    
     
