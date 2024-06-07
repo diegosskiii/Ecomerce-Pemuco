@@ -15,5 +15,5 @@ class Cart_detail(models.Model):
     cart_detail_id = models.AutoField(primary_key=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     cantidad = models.IntegerField()
-    total_price_cart = models.IntegerField()
+    total = models.IntegerField()
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
