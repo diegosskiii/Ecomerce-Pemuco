@@ -15,7 +15,6 @@ class CategorySerializer(serializers.ModelSerializer):
         return Category.objects.create(**validated_data)
 
 class ProductSerializer(serializers.ModelSerializer):
-    
     class Meta:
         model = Product
         exclude = ('state',)
