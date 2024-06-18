@@ -54,7 +54,7 @@ class UserTokenSerializer(serializers.ModelSerializer):
     class Meta:
         """proporcionar metadatos adicionales sobre el serializador"""
         model = User
-        fields = ('username', 'email', 'name')
+        fields = ('username', 'email', 'name','is_staff')
 
 class UserListSerializer(serializers.ModelSerializer):
     """Serializador para el modelo User utilizado para listar usuarios."""
