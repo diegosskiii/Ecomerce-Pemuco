@@ -19,15 +19,13 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         exclude = ('state',)
 
-def to_representation(self, instance):
-    request = self.context.get('request')
-    image_url = request.build_absolute_uri(instance.image.url) if instance.image else None
-    return {
-        "product_id": instance.product_id,
-        "product_name": instance.product_name,
-        "price": instance.price,
-        "description": instance.description,
-        "stock": instance.stock,
-        "category": instance.category.category_name,
-        "image": image_url
-    }
+    def to_representation(self, instance):
+        return {
+            "product_id":instance.product_id,
+            "product_name":instance.product_name,
+            "price": instance.price,
+            "description": instance.description,
+            "stock": instance.stock,
+            "category": instance.category.category_name,
+            "image": instance.image
+            }
