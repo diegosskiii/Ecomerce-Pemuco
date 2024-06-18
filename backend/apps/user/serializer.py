@@ -1,16 +1,45 @@
+"""
+Este módulo contiene serializadores para convertir 
+objetos Python en representaciones JSON y viceversa, 
+utilizados en la API REST para los modelos Region, Address y User.
+
+Módulos externos requeridos:
+    - rest_framework.serializers: Contiene las clases base para crear serializadores.
+
+Clases de Serializadores:
+- RegionSerializer: Serializador para el modelo Region.
+- AddressSerializer: Serializador para el modelo Address,
+     incluye la creación de una nueva región si no existe.
+- UserTokenSerializer: Serializador para el modelo User, 
+    utilizado para la autenticación del usuario.
+- UserListSerializer: Serializador para el modelo User, 
+    utilizado para listar usuarios.
+- UserSerializer: Serializador para el modelo User,
+    incluye la creación y actualización de la dirección del usuario.
+
+Métodos:
+- create(self, validated_data): Método utilizado para crear una nueva instancia de Address y User, 
+      con la opción de crear una nueva región si no existe.
+- update(self, instance, validated_data): Método utilizado para actualizar una instancia de User, 
+      incluyendo la actualización de la dirección del usuario si se proporciona.
+
+"""
 from rest_framework import serializers
 from .models import Region, Address, User
 
 
 class RegionSerializer(serializers.ModelSerializer):
+    """Serializador para el modelo Region."""
     class Meta:
+        """proporcionar metadatos adicionales sobre el serializador"""
         model = Region
         fields = '__all__'
 
 class AddressSerializer(serializers.ModelSerializer):
+    """Serializador para el modelo Address."""
     region = RegionSerializer()
-
     class Meta:
+        """proporcionar metadatos adicionales sobre el serializador"""
         model = Address
         fields = '__all__'
 
@@ -19,32 +48,28 @@ class AddressSerializer(serializers.ModelSerializer):
         region_instance, created = Region.objects.get_or_create(**region_data)
         address_instance = Address.objects.create(region=region_instance, **validated_data)
         return address_instance
-    
+
+class UserTokenSerializer(serializers.ModelSerializer):
+    """Serializador para el modelo User utilizado en la autenticación."""
+    class Meta:
+        """proporcionar metadatos adicionales sobre el serializador"""
+        model = User
+        fields = ('username', 'email', 'name')
+
 class UserListSerializer(serializers.ModelSerializer):
+    """Serializador para el modelo User utilizado para listar usuarios."""
     address = AddressSerializer()
     class Meta:
+        """proporcionar metadatos adicionales sobre el serializador"""
         model = User
         fields ='__all__'
 
-''' 
-   def to_representation(self, instance):
-        return {
-            'id': instance.id,
-            'name': instance.name,
-            'last_name': instance.last_name,
-            'rut': instance.rut,
-            'email': instance.email,
-            'address':{
-                'region': instance.address.region.region_name,
-                'street':instance.address.street,
-                'number':instance.address.number
-            }
-        }
-'''
 class UserSerializer(serializers.ModelSerializer):
+    """Serializador para el modelo User."""
     address = AddressSerializer()
 
     class Meta:
+        """proporcionar metadatos adicionales sobre el serializador"""
         model = User
         fields = '__all__'
 

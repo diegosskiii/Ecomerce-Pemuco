@@ -23,7 +23,7 @@ class Product(models.Model):
     stock = models.IntegerField()
     category = models.ForeignKey(Category,on_delete=models.CASCADE)
     state = models.BooleanField(default=True)
-    image = models.ImageField('Imagen del Producto', upload_to='products/', blank=True, null=True)
+    image = models.ImageField('Imagen del Producto', upload_to='apps/product/images', blank=True, null=True)
 
 class Opinion(models.Model):
     opinion_id = models.AutoField(primary_key=True)
