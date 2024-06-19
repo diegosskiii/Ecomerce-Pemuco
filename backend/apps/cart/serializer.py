@@ -1,63 +1,48 @@
 from rest_framework import serializers
-from apps.cart.models import Cart, Cart_detail, Cart_state
+from apps.cart.models import CartDetail, Cart, CartState
 from apps.product.models import Product
 from apps.user.models import User
 
-class CartStateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Cart_state
-        fields = '__all__'
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['username']
-
-class CartSerializer(serializers.ModelSerializer):
-    cart_state = CartStateSerializer()
-    user = UserSerializer()
-
-    class Meta:
-        model = Cart
-        fields = '__all__'
-
-    def create(self, validated_data):
-        cart_state_data = validated_data.pop('cart_state')
-        user_data = validated_data.pop('user')
-        cart_state_instance = Cart_state.objects.create(**cart_state_data)
-        user_instance = User.objects.create(**user_data)
-        cart_instance = Cart.objects.create(cart_state=cart_state_instance, user=user_instance, **validated_data)
-        return cart_instance
-
-
 class ProductQuantitySerializer(serializers.ModelSerializer):
+    product = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all())
+
     class Meta:
-        model = Cart_detail
-        fields = ['product', 'cantidad']
+        model = CartDetail
+        fields = ['product', 'cantidad']  # Cambiado de 'quantity' a 'cantidad'
 
 class CartDetailSerializer(serializers.ModelSerializer):
-    cart = CartSerializer()
     products = ProductQuantitySerializer(many=True, write_only=True)
+    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), write_only=True)
 
     class Meta:
-        model = Cart_detail
-        fields = '__all__'
-        extra_kwargs = {
-            'cart': {'read_only': True}
-        }
-        
+        model = CartDetail
+        fields = ['user', 'products']
+
     def create(self, validated_data):
         products_data = validated_data.pop('products')
-        cart_data = validated_data.pop('cart')
-        
-        cart_serializer = CartSerializer(data=cart_data)
-        cart_serializer.is_valid(raise_exception=True)
-        cart_instance = cart_serializer.save()
-        
-        cart_detail_instances = []
+        user = validated_data.pop('user')
+
+        # Verificar si el usuario ya tiene un carrito
+        cart = Cart.objects.filter(user=user).first()
+        if not cart:
+            cart_state = CartState.objects.create(state='active')
+            cart = Cart.objects.create(user=user, cart_state=cart_state)
+
+        # Verificar si el carrito pertenece al usuario
+        if cart.user != user:
+            raise serializers.ValidationError("El carro no corresponde al usuario")
+
+        cart_details = []
         for product_data in products_data:
-            product = Product.objects.get(pk=product_data['product'].id)
-            cart_detail_instance = Cart_detail.objects.create(cart=cart_instance, product=product, cantidad=product_data['cantidad'])
-            cart_detail_instances.append(cart_detail_instance)
-        
-        return cart_detail_instances
+            cart_detail = CartDetail.objects.create(cart=cart, **product_data)
+            cart_details.append(cart_detail)
+
+        return cart_details
+    
+    def to_representation(self, instance):
+        return {
+            "cart_id": instance.cart.cart_id,
+            "user": instance.cart.user.username,
+            "product": instance.product.product_name,
+            "cantidad": instance.cantidad
+        }
